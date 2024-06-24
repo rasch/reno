@@ -1,0 +1,75 @@
+{
+  "include": ["src/*.js"],
+  "compilerOptions": {
+    // Type Checking
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    // "alwaysStrict": true, // included in `strict`
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noImplicitAny": true, // included in `strict`
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    // "noImplicitThis": true, // included in `strict`
+    // "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    // "strictBindCallApply": true, // included in `strict`
+    // "strictFunctionTypes": true, // included in `strict`
+    // "strictNullChecks": true, // included in `strict`
+    // "strictPropertyInitialization": true, // included in `strict`
+    // "useUnknownInCatchVariables": true, // included in `strict`
+
+    // Modules
+
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+
+    // Emit
+
+    "declaration": true,
+    "declarationMap": true,
+    "newLine": "lf",
+    "noEmit": true, // use `tsup` or `esbuild` or `swc`, etc for emitting JS
+    "noEmitOnError": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "sourceMap": true,
+
+    // JavaScript Support
+
+    "allowJs": true,
+    "checkJs": true,
+
+    // Interop Constraints
+
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Language and Environment
+
+    // "emitDecoratorMetadata": true,
+    // "experimentalDecorators": true,
+    // "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "target": "es2020",
+    "useDefineForClassFields": true,
+
+    // Compiler Diagnostics
+
+    // "explainFiles": true,
+    // "extendedDiagnostics": true,
+    // "generateCpuProfile": true,
+    // "listEmittedFiles": true,
+    // "listFiles": true,
+    // "traceResolution": true,
+
+    // Completeness
+
+    "skipLibCheck": true
+  }
+}

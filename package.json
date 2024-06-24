@@ -1,0 +1,47 @@
+{
+  "name": "@rasch/reno",
+  "version": "0.1.0",
+  "description": "The Biggest Little Static Site Generator in the World!",
+  "type": "module",
+  "files": [
+    "./src/*.js",
+    "./src/*.d.ts"
+  ],
+  "main": "./src/index.js",
+  "exports": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf node_modules ./src/*.d.ts",
+    "gen-types": "tsc src/index.js --declaration --allowJs --emitDeclarationOnly"
+  },
+  "keywords": [
+    "static",
+    "site",
+    "website",
+    "blog",
+    "generator",
+    "static-site-generator",
+    "ssg",
+    "documentation",
+    "docs",
+    "jekyll",
+    "eleventy",
+    "11ty",
+    "templates",
+    "html",
+    "markdown"
+  ],
+  "author": "Rand Schneck <i@rasch.co>",
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "https://git.sr.ht/~rasch/reno.git"
+  },
+  "dependencies": {
+    "marked": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "typescript": "^5.5.2"
+  }
+}
