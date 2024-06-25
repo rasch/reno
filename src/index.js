@@ -34,7 +34,7 @@ marked.use({
 
 /**
  * identity :: ([String], ...String) -> String
- * @param {string[]} strings
+ * @param {TemplateStringsArray} strings
  * @param {string[]} values
  */
 const identity = (strings, ...values) =>
@@ -42,7 +42,7 @@ const identity = (strings, ...values) =>
 
 /**
  * markdown :: ([String], ...String) -> String
- * @param {string[]} strings
+ * @param {TemplateStringsArray} strings
  * @param {string[]} values
  */
 const markdown = (strings, ...values) =>
