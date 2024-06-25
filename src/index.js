@@ -134,8 +134,7 @@ const writePage = async post => {
  * @param {Post[]} posts
  * @returns {Promise<void[]>}
  */
-const writePosts = posts =>
-  Promise.all(posts.map(async post => await writePage(post)))
+const writePosts = posts => Promise.all(posts.map(writePage))
 
 export {
   identity as css,
