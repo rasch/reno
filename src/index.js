@@ -1,4 +1,5 @@
 import { marked } from "marked"
+import { gfmHeadingId } from "marked-gfm-heading-id"
 
 import { md5, sha256, sha512 } from "./hash.js"
 import { json, stringify } from "./json.js"
@@ -6,6 +7,8 @@ import { json, stringify } from "./json.js"
 import { cwd } from "node:process"
 import { join } from "node:path"
 import { lstat, mkdir, readdir, writeFile } from "node:fs/promises"
+
+marked.use(gfmHeadingId())
 
 marked.use({
   renderer: {

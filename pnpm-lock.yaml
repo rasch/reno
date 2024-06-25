@@ -11,6 +11,9 @@ importers:
       marked:
         specifier: ^13.0.0
         version: 13.0.0
+      marked-gfm-heading-id:
+        specifier: ^4.0.0
+        version: 4.0.0(marked@13.0.0)
     devDependencies:
       '@types/node':
         specifier: ^20.14.8
@@ -23,6 +26,14 @@ packages:
 
   '@types/node@20.14.8':
     resolution: {integrity: sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==}
+
+  github-slugger@2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
+
+  marked-gfm-heading-id@4.0.0:
+    resolution: {integrity: sha512-p53gp+nBIGeryucXzUFP8w67wtpin68+jOFBPw5m9FUfqx2ngAunO/I6KU6J3Xm3fyuv2JsSDxz0Z+pYVrHrwg==}
+    peerDependencies:
+      marked: '>=13 <14'
 
   marked@13.0.0:
     resolution: {integrity: sha512-VTeDCd9txf4KLLljUZ0nljE/Incb9SrWuueE44QVuU0pkOdh4sfCeW1Z6lPcxyDRSVY6rm8db/0OPaN75RNUmw==}
@@ -42,6 +53,13 @@ snapshots:
   '@types/node@20.14.8':
     dependencies:
       undici-types: 5.26.5
+
+  github-slugger@2.0.0: {}
+
+  marked-gfm-heading-id@4.0.0(marked@13.0.0):
+    dependencies:
+      github-slugger: 2.0.0
+      marked: 13.0.0
 
   marked@13.0.0: {}
 

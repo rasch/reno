@@ -38,7 +38,8 @@
     "url": "https://git.sr.ht/~rasch/reno.git"
   },
   "dependencies": {
-    "marked": "^13.0.0"
+    "marked": "^13.0.0",
+    "marked-gfm-heading-id": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",
