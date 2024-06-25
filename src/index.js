@@ -9,8 +9,10 @@ import { lstat, mkdir, readdir, writeFile } from "node:fs/promises"
 
 marked.use({
   renderer: {
-    listitem({ text, task }) {
-      return task ? `<li class="task-list-item">${text}</li>\n` : false
+    listitem({ text, task, checked }) {
+      return task
+        ? `<li class="task-list-item${checked ? ' checked' : ''}">${text}</li>\n`
+        : false
     }
   }
 })
@@ -119,7 +121,6 @@ const writePage = async post => {
 
   const dist = join("dist", post._path.replace(/[/\\]index$/, ""))
   const postContent = post.template === null ? post.content : template(post)
-
 
   await mkdirp(dist)
   await write(join(dist, "index.html"))(postContent)
