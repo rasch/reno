@@ -318,6 +318,7 @@ export const template = post => html`<!doctype html>
 </article>
 </body>
 </html>
+`
 ```
 
 An example blog post index file `src/posts/index.js`. Note that in this example
@@ -360,4 +361,10 @@ postArray(page.path)
   writePosts(posts.filter(p => !p.draft))
 })
 .catch(e => console.error(e))
+```
+
+To build the blog site, run:
+
+```sh
+node src/posts/index.js
 ```
