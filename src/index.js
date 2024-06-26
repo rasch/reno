@@ -130,7 +130,7 @@ const writePage = async post => {
 }
 
 /**
- * writePosts :: [Post] -> Promise([Post], Error)
+ * writePosts :: [Post] -> Promise([IO], Error)
  * @param {Post[]} posts
  * @returns {Promise<void[]>}
  */

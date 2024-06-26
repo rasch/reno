@@ -46,6 +46,13 @@ Then generate the HTML with `node`.
 node src/index.js
 ```
 
+In this case the build would fail because we haven't built the `data`, `head`
+and `body` components. Imagine they do exist though. The file would be written
+to `dist/index.html`. Reno only reads from a couple of paths in the `src`
+directory and writes the output to `dist`. All pages and posts are written to
+an index.html file in their path directory (based on the file path or the `path`
+property if given) for clean URLs.
+
 ## API
 
 ### Tagged Template Fns
@@ -146,7 +153,9 @@ There are a few user supplied keys that Reno can use internally.
 - **template**: if `undefined`, `src/components/post-template.js` is used as the
   default template. To use a different template for a post, set this to a string
   containing just the name of the template from the `src/components` directory.
-  To skip the template altogether, set `template` to `null`.
+  To skip the template altogether, set `template` to `null`. Templates are just
+  JavaScript modules that export a `template` function. The `template` function
+  should accept a single argument, a post object.
 
 Here are some post keys that could be useful for building a blog site. Though
 none of these are used by Reno, they are useful for filtering out draft posts,
@@ -161,7 +170,11 @@ sorting posts by date, and other bloggy things.
 }
 ```
 
-### postArray
+### postArray(dir)
+
+`postArray` accepts a string containing the path to the post directory within
+the `src` directory. For example, `postArray("posts")` would return a Promise
+with an array of post objects based on the content in `src/posts`.
 
 ```javascript
 import { postArray } from "@rasch/reno"
@@ -171,7 +184,13 @@ postArray("blog")
 .catch(e => console.error(e))
 ```
 
-### writePage
+### writePage(post)
+
+`writePage` accepts a post object and returns a `Promise<void>`. The only post
+keys that are used here are `path` (required), `content` (required), `template`
+(optional), and any additional keys that are required by the `template`. If the
+page `content` is a complete HTML page rather than a fragment, the `template`
+key should be set to `null` to skip the default `template`.
 
 ```javascript
 import { writePage } from "@rasch/reno"
@@ -180,18 +199,70 @@ writePage({ path: "about", content: "<h1>I'm Pogey</h1>" })
 .catch(e => console.error(e))
 ```
 
-### writePosts
+In the example above, the `content` would be interpolated by the default
+`template` file at `src/components/post-template.js` and written to
+`dist/about/index.html`.
+
+### writePosts(posts)
+
+`writePosts` accepts an array of post objects and writes the HTML output to the
+`dist` directory.
 
 ```javascript
 import { writePosts, postArray } from "@rasch/reno"
 
 postArray("blog")
-.then(posts => writePosts(posts))
+.then(posts => writePosts(posts.filter(p => !p.draft)))
+.catch(e => console.error(e))
+```
+
+In the example above, the posts are filtered to exclude drafts, assuming the
+drafts all have a `draft: true` property on their post object.
+
+### write
+
+`write` is a utility function used for writing non-HTML files such as CSS. It
+accepts a string argument containing the path to write to. This function can
+write to any path so, unlike the functions above, `dist` must be included the
+path. It returns a function that accepts a string to write to the file,
+returning a `Promise<void>`.
+
+```javascript
+import { write, css } from "@rasch/reno"
+
+const style = css`
+img {
+  display: block;
+  max-width: 100%;
+}
+`
+
+write("dist/style.css")(style)
 .catch(e => console.error(e))
 ```
 
 ### stringify
 
+`stringify` just wraps `JSON.stringify` in a Promise to simplify error handling
+(since the other Reno functions also return Promises). It is useful for
+generating static JSON APIs.
+
+```javascript
+import { stringify } from "@rasch/reno"
+
+stringify({hello: "world"})
+.then(str => { /* do something with JSON string */ })
+.catch(e => console.error(e))
+```
+
 ### json
 
-### write
+`json` just wraps `JSON.parse` in a Promise to simplify error handling.
+
+```javascript
+import { json } from "@rasch/reno"
+
+json('{"hello": "world"}')
+.then(json => { /* do something with object */ })
+.catch(e => console.error(e))
+```
