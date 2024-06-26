@@ -12,7 +12,7 @@
   "types": "./src/index.d.ts",
   "scripts": {
     "clean": "rm -rf node_modules ./src/*.d.ts",
-    "gen-types": "tsc src/index.js --declaration --allowJs --emitDeclarationOnly"
+    "gen-types": "tsc src/index.js --module nodenext --declaration --allowJs --emitDeclarationOnly"
   },
   "keywords": [
     "static",
