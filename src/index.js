@@ -122,7 +122,7 @@ const writePage = async post => {
   const templatePath = join(cwd(), "src", "components", templateFile)
   const { template } = await import(templatePath)
 
-  const dist = join("dist", post._path.replace(/[/\\]index$/, ""))
+  const dist = join("dist", (post.path || post._path).replace(/[/\\]index$/, ""))
   const postContent = post.template === null ? post.content : template(post)
 
   await mkdirp(dist)
