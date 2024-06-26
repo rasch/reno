@@ -1,0 +1,26 @@
+image: alpine/latest
+packages:
+  - nodejs
+  - npm
+sources:
+  - https://git.sr.ht/~rasch/reno
+environment:
+  project: reno
+secrets:
+  - 2b8f0d2a-cab9-451d-b684-6b89582fb7b0 # NPM publish token
+tasks:
+  - stop_if_not_release: |
+      cd "$project"
+      git describe --exact-match HEAD || complete-build
+  - setup: |
+      sudo npm install --global pnpm
+      cd "$project"
+      pnpm install
+  - release: |
+      cd "$project"
+      echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
+      set +x
+      . ~/.env
+      set -x
+      pnpm run --silent gen-types
+      npm publish --access public
