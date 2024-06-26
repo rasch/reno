@@ -50,8 +50,8 @@ In this case the build would fail because we haven't built the `data`, `head`
 and `body` components. Imagine they do exist though. The file would be written
 to `dist/index.html`. Reno only reads from a couple of paths in the `src`
 directory and writes the output to `dist`. All pages and posts are written to
-an index.html file in their path directory (based on the file path or the `path`
-property if given) for clean URLs.
+an `index.html` file in their path directory (which is based on the src file
+path or the `path` property if given) for clean URLs.
 
 ## API
 
@@ -264,5 +264,100 @@ import { json } from "@rasch/reno"
 
 json('{"hello": "world"}')
 .then(json => { /* do something with object */ })
+.catch(e => console.error(e))
+```
+
+## Examples
+
+Well, if all of that was a bit confusing, then maybe a couple of examples will
+clear things up.
+
+An example post `src/posts/my-awesome-post.js`.
+
+```javascript
+import { md } from "@rasch/reno"
+
+export const post = {
+  title: "My Awesome Post",
+  description: "A post about something awesome"
+  tags: ["awesome", "animation"],
+  date: new Date("2024-04-20T04:20:00"),
+}
+
+post.content = md`
+The first paragraph.
+
+## Section Two
+
+A section two paragraph.
+`
+```
+
+An example template file `src/components/post-template.js`.
+
+```javascript
+import { html } from "@rasch/reno"
+
+export const template = post => html`<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>${post.title || post._path}</title>
+  <meta name="description" content="${post.description}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<article class="content">
+  <h1>${post.title || post._path}</h1>
+  <p class="post-date">
+    <time datetime="${post.date?.toISOString() || post._stat.mtimeMs.toISOString()}">
+      ${post.date?.toDateString() || post._stat.mtimeMs.toDateString()}
+    </time>
+  </p>
+  ${post.content}
+</article>
+</body>
+</html>
+```
+
+An example blog post index file `src/posts/index.js`. Note that in this example
+a template file at `src/components/page-template.js` would need to be created as
+well.
+
+```javascript
+import { html, postArray, writePage, writePosts } from "@rasch/reno"
+
+const page = {
+  title: "My Recent Posts",
+  template: "page-template.js",
+  date: new Date(),
+  path: "posts",
+}
+
+const postCard = post => html`
+<li>
+  <a href="/${post._path}">
+    [${new Date(post.date || post._stat.mtimeMs).toLocaleDateString()}]
+    ${post.title || post._path}
+  </a>
+</li>`.trim()
+
+postArray(page.path)
+.then(posts => {
+  posts.sort((a, b) =>
+    new Date(b.date || b._stat.mtimeMs) - new Date(a.date || a._stat.mtimeMs))
+
+  page.content = html`
+  <ul>
+  ${posts
+    .filter(p => !p.draft && p.content)
+    .map(postCard)
+    .join("")
+    .trim()}
+  </ul>`
+
+  writePage(page)
+  writePosts(posts.filter(p => !p.draft))
+})
 .catch(e => console.error(e))
 ```
