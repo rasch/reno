@@ -36,6 +36,7 @@ marked.use({
  * identity :: ([String], ...String) -> String
  * @param {TemplateStringsArray} strings
  * @param {string[]} values
+ * @returns {string}
  */
 const identity = (strings, ...values) =>
   String.raw({ raw: strings }, ...values)
@@ -44,9 +45,10 @@ const identity = (strings, ...values) =>
  * markdown :: ([String], ...String) -> String
  * @param {TemplateStringsArray} strings
  * @param {string[]} values
+ * @returns {string}
  */
 const markdown = (strings, ...values) =>
-  marked.parse(identity(strings, ...values))
+  /** @type {string} */ (marked.parse(identity(strings, ...values)))
 
 /**
  * flip :: (a -> b -> c) -> b -> a -> c
