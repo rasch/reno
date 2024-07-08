@@ -23,18 +23,18 @@ marked.use(gfmHeadingId())
  */
 
 /**
- * identity :: ([String], ...String) -> String
+ * identity :: ([String], ...a) -> String
  * @param {TemplateStringsArray} strings
- * @param {string[]} values
+ * @param {any[]} values
  * @returns {string}
  */
 const identity = (strings, ...values) =>
   String.raw({ raw: strings }, ...values)
 
 /**
- * markdown :: ([String], ...String) -> String
+ * markdown :: ([String], ...a) -> String
  * @param {TemplateStringsArray} strings
- * @param {string[]} values
+ * @param {any[]} values
  * @returns {string}
  */
 const markdown = (strings, ...values) =>
