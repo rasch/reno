@@ -73,8 +73,7 @@ const imgCSS = () => css`img { display: block; max-width: 100%; }`
 
 The `md` and `markdown` functions parse markdown and return an HTML string.
 [Marked](https://marked.js.org/) is used by Reno to parse the markdown. The
-output HTML includes id tags on the headings. Task list items are also
-supported by adding classes to list items, `tast-list-item` and `checked`.
+output HTML includes id tags on the headings.
 
 ```javascript
 import { md } from "@rasch/reno"
@@ -279,7 +278,7 @@ import { md } from "@rasch/reno"
 
 export const post = {
   title: "My Awesome Post",
-  description: "A post about something awesome"
+  description: "A post about something awesome",
   tags: ["awesome", "animation"],
   date: new Date("2024-04-20T04:20:00"),
 }

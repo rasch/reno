@@ -10,16 +10,6 @@ import { lstat, mkdir, readdir, writeFile } from "node:fs/promises"
 
 marked.use(gfmHeadingId())
 
-marked.use({
-  renderer: {
-    listitem({ text, task, checked }) {
-      return task
-        ? `<li class="task-list-item${checked ? ' checked' : ''}">${text}</li>\n`
-        : false
-    }
-  }
-})
-
 /**
  * @typedef {Object<string, any>} Post
  * @property {string} _md5
