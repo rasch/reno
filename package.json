@@ -1,6 +1,6 @@
 {
   "name": "@rasch/reno",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "The Biggest Little Static Site Generator in the World!",
   "type": "module",
   "files": [
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "marked": "^13.0.0",
+    "marked-footnote": "^1.2.4",
     "marked-gfm-heading-id": "^4.0.0"
   },
   "devDependencies": {
